@@ -45,7 +45,7 @@ const connection = mysql.createConnection({
              }
 
                else {
-                    writeToFile()
+                   
                } 
                    
                
