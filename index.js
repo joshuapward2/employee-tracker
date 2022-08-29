@@ -1,15 +1,32 @@
 const inquirer  = require("inquirer");
-const app = inquirer()
+
+const express = require('express');
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 
 const cTable = require('console.table');
 
 const mysql = require('mysql2');
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'test'
-  });
 
+// Connect to database
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      // Your MySQL username,
+      user: 'root',
+      // Your MySQL password
+      password: '',
+      database: '${placeholder}'
+    },
+    console.log('Connected to the election database.')
+  );
+  
 
 
   function chooseRole () {
@@ -55,3 +72,14 @@ const connection = mysql.createConnection({
         function viewDepartments() {
             inquirer.prompt()
         }
+
+
+
+
+
+
+
+
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+          });
