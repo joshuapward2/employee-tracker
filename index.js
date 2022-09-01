@@ -21,12 +21,13 @@ const db = mysql.createConnection(
       // Your MySQL username,
       user: 'root',
       // Your MySQL password
-      password: '',
-      database: '${placeholder}'
+      password: 'Smallsnail853',
+      database: 'Employee_Tracker'
     },
     console.log('Connected to the election database.')
   );
   
+db.connect()
 
 
   function chooseRole () {
@@ -61,25 +62,60 @@ const db = mysql.createConnection(
                 updateEmployeeRole()
              }
 
-               else {
-                   
-               } 
+            
                    
                
            })
         }
 
         function viewDepartments() {
-            inquirer.prompt()
+          db.query(`SELECT * FROM department;`, (err, res) => {
+            console.table(res)
+            chooseRole()
+          })
+          
         }
 
 
+function viewRoles() {
+  db.query(`SELECT * FROM role;`, (err, res) => {
+    console.table(res)
+    chooseRole()
+  })
+  
+}
+
+
+function viewEmployees() {
+  db.query(`SELECT * FROM employee;`, (err, res) => {
+    console.table(res)
+    chooseRole()
+  })
+  
+}
+chooseRole()
+
+function addDepartment() {
+  inquirer.prompt(
+    {
+      name: "Department_name",
+      message: "Whats the name of th department?",
+      type: "input"
+
+    }
+    
+  ).then(ans => {
+    db.query(`INSERT INTO department VALUES(${ans.Department_name});`, (err, res) => {
+      console.table(res)
+      chooseRole()
+    })
+  })
+} 
 
 
 
 
 
 
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-          });
+
+       
