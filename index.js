@@ -139,7 +139,7 @@ function addRole() {
     
     
   ).then(ans => {
-    db.query(`INSERT INTO role VALUES(${ans.Role_name});`, (err, res) => {
+    db.query(`INSERT INTO role VALUES(${ans.Role_name}, INSERT INTO role VALUES(${ans.Salary}, INSERT INTO role VALUES(${ans.Role_Department});`, (err, res) => {
       console.table(res)
       chooseRole()
     })
