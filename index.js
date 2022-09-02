@@ -148,6 +148,80 @@ function addRole() {
 
 
 
+function addRole() {
+  inquirer.prompt(
+    {
+      name: "Role_name",
+      message: "Whats the employees role?",
+      type: "input"
+
+    },
+    {
+      name: "Salary",
+      message: "Whats the employees salary?",
+      type: "input"
+
+    },
+    {
+      name: "Role_Department",
+      message: "What department is this role in?",
+      type: "input"
+
+    }
+    
+    
+    
+  ).then(ans => {
+    db.query(`INSERT INTO role VALUES(${ans.Role_name});`, (err, res) => {
+      console.table(res)
+      chooseRole()
+    })
+  })
+} 
+
+
+
+
+
+function addEmployee() {
+  inquirer.prompt(
+    {
+      name: "first_Name",
+      message: "Whats the employees first name?",
+      type: "input"
+
+    },
+    {
+      name: "last_name",
+      message: "Whats the employees last name?",
+      type: "input"
+
+    },
+    {
+      name: "role_name",
+      message: "Whats the employees role?",
+      type: "input"
+
+    },
+    {
+      name: "manager_name",
+      message: "Whats the employees managers name?",
+      type: "input"
+
+    },
+    
+    
+    
+  ).then(ans => {
+    db.query(`INSERT INTO role VALUES(${ans.first_Name});`, (err, res) => {
+      console.table(res)
+      chooseRole()
+    })
+  })
+} 
+
+       
+
 
 
 
