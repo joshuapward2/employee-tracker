@@ -99,13 +99,47 @@ function addDepartment() {
   inquirer.prompt(
     {
       name: "Department_name",
-      message: "Whats the name of th department?",
+      message: "Whats the name of the department?",
       type: "input"
 
     }
     
   ).then(ans => {
     db.query(`INSERT INTO department VALUES(${ans.Department_name});`, (err, res) => {
+      console.table(res)
+      chooseRole()
+    })
+  })
+} 
+
+
+
+
+function addRole() {
+  inquirer.prompt(
+    {
+      name: "Role_name",
+      message: "Whats the employees role?",
+      type: "input"
+
+    },
+    {
+      name: "Salary",
+      message: "Whats the employees salary?",
+      type: "input"
+
+    },
+    {
+      name: "Role_Department",
+      message: "What department is this role in?",
+      type: "input"
+
+    }
+    
+    
+    
+  ).then(ans => {
+    db.query(`INSERT INTO role VALUES(${ans.Role_name});`, (err, res) => {
       console.table(res)
       chooseRole()
     })
