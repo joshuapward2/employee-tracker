@@ -79,6 +79,10 @@ db.connect()
 
 function viewRoles() {
   db.query(`SELECT * FROM role;`, (err, res) => {
+
+    if(err){
+      console.log(err)
+    }
     console.table(res)
     chooseRole()
   })
@@ -88,12 +92,15 @@ function viewRoles() {
 
 function viewEmployees() {
   db.query(`SELECT * FROM employee;`, (err, res) => {
+    if(err){
+      console.log(err)
+    }
     console.table(res)
     chooseRole()
   })
   
 }
-chooseRole()
+
 
 function addDepartment() {
   inquirer.prompt(
@@ -105,7 +112,10 @@ function addDepartment() {
     }
     
   ).then(ans => {
-    db.query(`INSERT INTO department VALUES(${ans.Department_name});`, (err, res) => {
+    db.query(`INSERT INTO department(name) VALUES("${ans.Department_name}");`, (err, res) => {
+      if(err){
+        console.log(err)
+      }
       console.table(res)
       chooseRole()
     })
@@ -116,114 +126,119 @@ function addDepartment() {
 
 
 function addRole() {
-  inquirer.prompt(
+  inquirer.prompt([
     {
       name: "Role_name",
-      message: "Whats the employees role?",
+      message: "Whats the name of the role you'd like to add?",
       type: "input"
 
     },
     {
       name: "Salary",
-      message: "Whats the employees salary?",
+      message: "Whats the salary for this role?",
       type: "input"
 
     },
     {
       name: "Role_Department",
-      message: "What department is this role in?",
+      message: "What department id is this role in?",
       type: "input"
 
     }
     
     
     
-  ).then(ans => {
-    db.query(`INSERT INTO role VALUES(${ans.Role_name}, INSERT INTO role VALUES(${ans.Salary}, INSERT INTO role VALUES(${ans.Role_Department});`, (err, res) => {
+  ]).then(roleAns => {
+    db.query(`INSERT INTO role(title,salary,department_id) VALUES("${roleAns.Role_name}", ${roleAns.Salary},${roleAns.Role_Department});`, (err, res) => {
+
+      if(err){
+        console.log(err)
+      }
       console.table(res)
       chooseRole()
     })
   })
 } 
-
-
-
-function addRole() {
-  inquirer.prompt(
-    {
-      name: "Role_name",
-      message: "Whats the employees role?",
-      type: "input"
-
-    },
-    {
-      name: "Salary",
-      message: "Whats the employees salary?",
-      type: "input"
-
-    },
-    {
-      name: "Role_Department",
-      message: "What department is this role in?",
-      type: "input"
-
-    }
-    
-    
-    
-  ).then(ans => {
-    db.query(`INSERT INTO role VALUES(${ans.Role_name});`, (err, res) => {
-      console.table(res)
-      chooseRole()
-    })
-  })
-} 
-
-
 
 
 
 function addEmployee() {
-  inquirer.prompt(
+  inquirer.prompt([
     {
-      name: "first_Name",
+      name: "first_name",
       message: "Whats the employees first name?",
       type: "input"
 
     },
     {
       name: "last_name",
-      message: "Whats the employees last name?",
+      message: "Whats the employees last_name?",
       type: "input"
 
     },
     {
-      name: "role_name",
-      message: "Whats the employees role?",
+      name: "role_id",
+      message: "Whats the employee's role_id?",
       type: "input"
 
     },
     {
-      name: "manager_name",
-      message: "Whats the employees managers name?",
+      name: "manager_id",
+      message: "Whats the employee's manager_id?",
       type: "input"
 
-    },
+    }
     
     
     
-  ).then(ans => {
-    db.query(`INSERT INTO role VALUES(${ans.first_Name});`, (err, res) => {
+    
+  ]).then(empAns => {
+    db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES("${empAns.first_name}", "${empAns.last_name}", ${empAns.role_id}, ${empAns.manager_id});`, (err, res) => {
+
+      if(err){
+        console.log(err)
+      }
+      else{
       console.table(res)
       chooseRole()
+    }
     })
   })
 } 
 
-       
+function updateEmployeeRole() {
+
+  inquirer.prompt([
+
+    {
+      name: "role_name_update",
+      message: "Whats the id of the employee youd like to update?",
+      type: "input"
+
+    },
+    {
+      name: "role_name_update2",
+      message: "Whats the id of the role youd like to update?",
+      type: "input"
+
+    },
+
+  ]).then(updateEmpAns => {
+    db.query(`UPDATE employee SET role_id = ${updateEmpAns.role_name_update2}, WHERE id = ${updateEmpAns.role_name_update}`, (err, res) => {
+      if(err){
+        console.log(err)
+      }
+      else{
+      console.table(res)
+      chooseRole()
+    }
+    })
 
 
+})
+
+chooseRole()
 
 
-
-       
+}
+chooseRole()
