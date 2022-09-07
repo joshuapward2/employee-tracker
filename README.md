@@ -22,6 +22,7 @@ GitHub repository link:
 https://github.com/joshuapward2/employee-tracker
 
 Link to video tutorial:
+https://www.youtube.com/watch?v=4rCMaxOqCl0
 
 # Screenshots
 N/A
